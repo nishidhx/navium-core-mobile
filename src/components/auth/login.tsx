@@ -49,7 +49,7 @@ export const Login = () => {
                         secureTextEntry
                     />
 
-                    <Pressable style={styles.primaryButton} onPress={() => router.back()}>
+                    <Pressable style={styles.primaryButton} onPress={() => router.push("/accounts/(tabs)/profile")}>
                         <Text style={styles.primaryButtonText}>Log in</Text>
                     </Pressable>
 
