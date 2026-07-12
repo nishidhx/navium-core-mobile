@@ -13,6 +13,8 @@ export const UserProfile = () => {
 
 const UserProfileStyles = StyleSheet.create({
     Container: {
+        backgroundColor: "black",
+        padding: 10,
         justifyContent: "center",
         alignItems: "center",
         height: "100%",
