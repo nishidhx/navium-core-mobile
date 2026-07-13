@@ -20,12 +20,12 @@ export default function TabLayout() {
                             position: "absolute",
                             bottom: 0,
                             backgroundColor: "black",
-                            justifyContent: "center",
+                            justifyContent: "space-evenly",
                             alignItems: "center",
 
                         },
                         tabBarItemStyle: {
-                            justifyContent: "center",
+                            justifyContent: "space-evenly",
                             alignItems: "center",
                         },
 
