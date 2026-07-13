@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "navium-clt-android",
+      "name": "navium-core-plt",
       "dependencies": {
         "@expo/ui": "~57.0.4",
         "@expo/vector-icons": "^15.1.1",

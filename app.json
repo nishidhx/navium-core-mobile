@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "navium-clt-android",
-    "slug": "navium-clt-android",
+    "name": "navium-core-plt",
+    "slug": "navium-core-plt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
