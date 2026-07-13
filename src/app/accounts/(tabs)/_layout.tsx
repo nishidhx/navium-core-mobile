@@ -19,9 +19,10 @@ export default function TabLayout() {
                             paddingTop: 10,
                             position: "absolute",
                             bottom: 0,
-                            backgroundColor: "black",
+                            backgroundColor: "#0f0f0f",
                             justifyContent: "space-evenly",
                             alignItems: "center",
+                            borderColor: "rgba(234, 221, 227, 0.09)"
 
                         },
                         tabBarItemStyle: {
