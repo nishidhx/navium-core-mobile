@@ -1,8 +1,4 @@
 
-
-
-
-
 import { SecureStorage } from "@/services/secureStore";
 import { useRouter } from "expo-router";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";

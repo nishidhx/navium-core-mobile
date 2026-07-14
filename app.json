@@ -4,7 +4,7 @@
     "slug": "navium-core-plt",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/appicon.png",
     "scheme": "naviumcltandroid",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -12,14 +12,13 @@
       "bundleIdentifier": "com.anonymous.naviumcltandroid"
     },
     "android": {
+      "package": "com.xnishidh.naviumcltandroid",
+      "icon": "./assets/images/appicon.png",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.naviumcltandroid"
+      }
     },
     "web": {
       "output": "static",
@@ -30,8 +29,8 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
+          "backgroundColor": "#0F0F0F",
+          "image": "./assets/images/icon.png",
           "imageWidth": 76
         }
       ],
