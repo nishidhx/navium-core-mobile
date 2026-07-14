@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Animated, Image, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
+import { AuthStoarge } from "@/lib/authStorage";
 
 export const InitialPage = () => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
+    const router = useRouter();
 
     useEffect(() => {
         Animated.timing(fadeAnim, {
@@ -11,6 +14,31 @@ export const InitialPage = () => {
             useNativeDriver: true,
         }).start();
     }, [fadeAnim]);
+
+    useEffect(() => {
+        const checkAuthAndNavigate = async () => {
+            try {
+                const token = await AuthStoarge.getAccessToken();
+                if (token) {
+                    // User is authenticated, go to profile
+                    router.replace('/accounts/(tabs)/profile');
+                } else {
+                    // User is not authenticated, go to auth page
+                    router.replace('/home');
+                }
+            } catch (error) {
+                console.error("Auth check error:", error);
+                // On error, go to home (safe default)
+                router.replace('/home');
+            }
+        };
+
+        const timer = setTimeout(() => {
+            checkAuthAndNavigate();
+        }, 2000);
+
+        return () => clearTimeout(timer);
+    }, [router]);
 
     return (
         <Animated.View style={[InitialPageStyles.Container, { opacity: fadeAnim }]}>

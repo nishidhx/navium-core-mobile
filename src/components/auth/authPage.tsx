@@ -2,10 +2,42 @@ import { LinearGradient } from "expo-linear-gradient"
 import { useRouter } from "expo-router"
 import { Image, Pressable, StyleSheet, Text, View } from "react-native"
 import Animated from "react-native-reanimated"
+import { useEffect, useState } from "react"
+import { AuthStoarge } from "@/lib/authStorage"
+import { LoaderIcon } from "@/icons/mainIcons"
 
 
 export const AuthPage = () => {
     const router = useRouter()
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true)
+
+    useEffect(() => {
+        // Check if user is already authenticated
+        const checkAuth = async () => {
+            try {
+                const token = await AuthStoarge.getAccessToken()
+                if (token) {
+                    // User is already logged in, redirect to profile
+                    router.replace("/accounts/(tabs)/profile")
+                } else {
+                    setIsCheckingAuth(false)
+                }
+            } catch (error) {
+                console.error("Auth check error:", error)
+                setIsCheckingAuth(false)
+            }
+        }
+
+        checkAuth()
+    }, [router])
+
+    if (isCheckingAuth) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#100f0f" }}>
+                <LoaderIcon color="#FFFFFF" size={40} />
+            </View>
+        )
+    }
 
     return (
         <Animated.View style={AuthPageStyles.Container}>

@@ -17,9 +17,13 @@ export class AuthStoarge {
 
         return null;
     }
-    public static getAccessToken() {
+    public static async getAccessToken(): Promise<string | null> {
         return SecureStorage.get(
             STORAGE_KEYS.ACCESS_TOKEN
         );
+    }
+
+    public static async setAccessToken(value: string): Promise<void> {
+        return SecureStorage.set(STORAGE_KEYS.ACCESS_TOKEN, value);
     }
 }

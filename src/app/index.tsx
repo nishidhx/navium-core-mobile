@@ -2,19 +2,9 @@
 import { InitialPage } from '@/components/auth/ViewPage';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 const App = () => {
-  const router = useRouter();
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace('/home');
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
   const [fontsLoaded] = useFonts({
     'HankenGrotesk-Italic': require('../../assets/fonts/HankenGrotesk-Italic-VariableFont_wght.ttf'),
     'HankenGrotesk-Variable': require('../../assets/fonts/HankenGrotesk-VariableFont_wght.ttf'),
@@ -48,7 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#100f0f",
-    // marginTop: 20,
   }
 })
 
