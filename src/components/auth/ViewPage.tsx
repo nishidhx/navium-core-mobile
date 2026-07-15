@@ -1,7 +1,9 @@
+"use client"
+
+import { AuthStoarge } from "@/lib/authStorage";
+import { useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, Image, StyleSheet, View } from "react-native";
-import { useRouter } from "expo-router";
-import { AuthStoarge } from "@/lib/authStorage";
 
 export const InitialPage = () => {
     const fadeAnim = useRef(new Animated.Value(0)).current;

@@ -1,9 +1,11 @@
 
-import { AuthStoarge } from "@/lib/authStorage"
+"use client"
+
 import { LoaderIcon } from "@/icons/mainIcons"
+import { AuthStoarge } from "@/lib/authStorage"
 import { LinearGradient } from "expo-linear-gradient"
 import { useRouter } from "expo-router"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native"
 
 // Test user credentials

@@ -1,10 +1,12 @@
+"use client"
+
+import { LoaderIcon } from "@/icons/mainIcons"
+import { AuthStoarge } from "@/lib/authStorage"
 import { LinearGradient } from "expo-linear-gradient"
 import { useRouter } from "expo-router"
+import { useEffect, useState } from "react"
 import { Image, Pressable, StyleSheet, Text, View } from "react-native"
 import Animated from "react-native-reanimated"
-import { useEffect, useState } from "react"
-import { AuthStoarge } from "@/lib/authStorage"
-import { LoaderIcon } from "@/icons/mainIcons"
 
 
 export const AuthPage = () => {

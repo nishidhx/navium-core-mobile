@@ -8,7 +8,7 @@
     "scheme": "naviumcltandroid",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon",
+      "icon": "./assets/images/appicon.png",
       "bundleIdentifier": "com.anonymous.naviumcltandroid"
     },
     "android": {

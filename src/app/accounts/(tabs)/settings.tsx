@@ -1,10 +1,13 @@
 
+import { useTheme } from "@/hooks/useTheme";
 import { SecureStorage } from "@/services/secureStore";
 import { useRouter } from "expo-router";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 
 export default function Settings() {
     const router = useRouter();
+    const { theme, setMode } = useTheme();
+    const isDarkTheme = theme === "dark";
 
     const handleLogout = () => {
         Alert.alert(
@@ -36,46 +39,60 @@ export default function Settings() {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.title}>Settings</Text>
+        <View style={[styles.container, { backgroundColor: isDarkTheme ? "#100f0f" : "#f5f5f5" }]}>
+            <View style={[styles.header, { borderBottomColor: isDarkTheme ? "#2a2a2d" : "#d9d9d9" }]}>
+                <Text style={[styles.title, { color: isDarkTheme ? "#ffffff" : "#111111" }]}>Settings</Text>
             </View>
 
             <View style={styles.content}>
                 <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Appearance</Text>
+
+                    <View style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]}>
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>Dark mode</Text>
+                        <Switch
+                            value={isDarkTheme}
+                            onValueChange={(value) => setMode(value ? "dark" : "light")}
+                            thumbColor={isDarkTheme ? "#ffffff" : "#f4f3f4"}
+                            trackColor={{ false: "#767577", true: "#81b0ff" }}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Account</Text>
 
-                    <Pressable style={styles.optionButton} onPress={handleLogout}>
-                        <Text style={styles.optionText}>Preferences</Text>
-                        <Text style={styles.optionArrow}>›</Text>
+                    <Pressable style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]} onPress={handleLogout}>
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>Preferences</Text>
+                        <Text style={[styles.optionArrow, { color: isDarkTheme ? "#8f8f8f" : "#666666" }]}>›</Text>
                     </Pressable>
 
-                    <Pressable style={styles.optionButton}>
-                        <Text style={styles.optionText}>Notifications</Text>
-                        <Text style={styles.optionArrow}>›</Text>
+                    <Pressable style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]}> 
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>Notifications</Text>
+                        <Text style={[styles.optionArrow, { color: isDarkTheme ? "#8f8f8f" : "#666666" }]}>›</Text>
                     </Pressable>
 
-                    <Pressable style={styles.optionButton}>
-                        <Text style={styles.optionText}>Privacy</Text>
-                        <Text style={styles.optionArrow}>›</Text>
+                    <Pressable style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]}> 
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>Privacy</Text>
+                        <Text style={[styles.optionArrow, { color: isDarkTheme ? "#8f8f8f" : "#666666" }]}>›</Text>
                     </Pressable>
                 </View>
 
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Support</Text>
 
-                    <Pressable style={styles.optionButton}>
-                        <Text style={styles.optionText}>Help Center</Text>
-                        <Text style={styles.optionArrow}>›</Text>
+                    <Pressable style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]}> 
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>Help Center</Text>
+                        <Text style={[styles.optionArrow, { color: isDarkTheme ? "#8f8f8f" : "#666666" }]}>›</Text>
                     </Pressable>
 
-                    <Pressable style={styles.optionButton}>
-                        <Text style={styles.optionText}>About</Text>
-                        <Text style={styles.optionArrow}>›</Text>
+                    <Pressable style={[styles.optionButton, { borderBottomColor: isDarkTheme ? "#1b1a1c" : "#e6e6e6" }]}> 
+                        <Text style={[styles.optionText, { color: isDarkTheme ? "#f5f5f5" : "#111111" }]}>About</Text>
+                        <Text style={[styles.optionArrow, { color: isDarkTheme ? "#8f8f8f" : "#666666" }]}>›</Text>
                     </Pressable>
                 </View>
 
-                <Pressable style={styles.logoutButton} onPress={handleLogout}>
+                <Pressable style={[styles.logoutButton, { backgroundColor: isDarkTheme ? "#8B0000" : "#b91c1c" }]} onPress={handleLogout}>
                     <Text style={styles.logoutButtonText}>Logout</Text>
                 </Pressable>
             </View>
