@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { getCurrentThemeObject, subscribeToTheme } from "@/constants/theme"
+import { useState, useSyncExternalStore } from "react"
 import { Pressable, StyleSheet, Text, View } from "react-native"
 
 const tabItems = ["Posts", "Bookmarks", "Reposts"] as const
@@ -154,21 +155,23 @@ const sortByNewest = (items: ContentItem[]) =>
     [...items].sort((a, b) => parseTimestamp(a.timestamp) - parseTimestamp(b.timestamp))
 
 export const UserActive = () => {
+        const currentTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject, getCurrentThemeObject);
+    
     const [activeTab, setActiveTab] = useState<TabItem>("Posts")
     const selectedContent = sortByNewest(tabContent[activeTab] ?? tabContent.Posts)
 
     return (
-        <View style={UserActiveStyles.UserActiveContainer}>
+        <View style={[UserActiveStyles.UserActiveContainer, { backgroundColor: currentTheme.backgroundColor }]}>
             <View style={UserActiveStyles.tabRow}>
                 {tabItems.map((tab) => {
                     const isActive = tab === activeTab
                     return (
                         <Pressable
                             key={tab}
-                            style={[UserActiveStyles.tabButton, isActive && UserActiveStyles.tabButtonActive]}
+                            style={[UserActiveStyles.tabButton, isActive && [UserActiveStyles.tabButtonActive, {backgroundColor: currentTheme.SecondaryBackgroundColor}]]}
                             onPress={() => setActiveTab(tab)}
                         >
-                            <Text style={[UserActiveStyles.tabText, isActive && UserActiveStyles.tabTextActive]}>
+                            <Text style={[UserActiveStyles.tabText, {color: currentTheme.textColor} , isActive && UserActiveStyles.tabTextActive, {color: currentTheme.textColor}]}>
                                 {tab}
                             </Text>
                             {isActive && <View style={UserActiveStyles.activeIndicator} />}
@@ -176,11 +179,11 @@ export const UserActive = () => {
                     )
                 })}
             </View>
-            <View style={UserActiveStyles.contentContainer}>
+            <View style={[UserActiveStyles.contentContainer, ]}>
                 {selectedContent.map((item, index) => (
-                    <View key={`${activeTab}-${index}`} style={UserActiveStyles.card}>
-                        <Text style={UserActiveStyles.cardTitle}>{item.title}</Text>
-                        <Text style={UserActiveStyles.cardDescription}>{item.description}</Text>
+                    <View key={`${activeTab}-${index}`} style={[UserActiveStyles.card, {backgroundColor: currentTheme.SecondaryBackgroundColor, borderColor: currentTheme.borderColor}]}>
+                        <Text style={[UserActiveStyles.cardTitle, {color: currentTheme.textColor}]}>{item.title}</Text>
+                        <Text style={[UserActiveStyles.cardDescription, {color: currentTheme.secondaryFontColor}]}>{item.description}</Text>
                         <Text style={UserActiveStyles.cardMeta}>{formatMeta(item)}</Text>
                     </View>
                 ))}

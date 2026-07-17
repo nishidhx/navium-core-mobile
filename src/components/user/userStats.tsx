@@ -1,6 +1,11 @@
-import { StyleSheet, Text, View } from "react-native"
+import { getCurrentThemeObject, subscribeToTheme } from "@/constants/theme";
+import { useSyncExternalStore } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 export const UserStats = () => {
+        const currentTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject, getCurrentThemeObject);
+    
+
     const stats = [
         { value: "120", label: "Post" },
         { value: "1.2k", label: "Followers" },
@@ -10,7 +15,7 @@ export const UserStats = () => {
     return (
         <View style={UserStatsStyles.UserStatsContainer}>
             <View>
-                <Text style={UserStatsStyles.BioText}>
+                <Text style={[UserStatsStyles.BioText, {color: currentTheme.secondaryFontColor}]}>
                     Ex @amazon
                     @samsung R&D • @jpmorganCFG{'\n'}
                     2025 Winner • @amazon hackon • code with{'\n'}
@@ -18,10 +23,10 @@ export const UserStats = () => {
                 </Text>
             </View>
 
-            <View style={UserStatsStyles.UserStatsCountContainer}>
+            <View style={[UserStatsStyles.UserStatsCountContainer, {borderColor: currentTheme.borderColor, backgroundColor: currentTheme.SecondaryBackgroundColor}]}>
                 {stats.map((item) => (
                     <View style={UserStatsStyles.StatItem} key={item.label}>
-                        <Text style={UserStatsStyles.StatValue}>{item.value}</Text>
+                        <Text style={[UserStatsStyles.StatValue, {color: currentTheme.textColor}]}>{item.value}</Text>
                         <Text style={UserStatsStyles.StatLabel}>{item.label}</Text>
                     </View>
                 ))}
@@ -48,20 +53,26 @@ const UserStatsStyles = StyleSheet.create({
         paddingVertical: 12,
         borderWidth: 1,
         borderRadius: 20,
-        borderColor: "rgba(234, 221, 227, 0.09)",
-        backgroundColor: "rgba(234, 221, 227, 0.04)"
+        borderColor: "#eadde317",
+        backgroundColor: "#eadde30a"
     },
     StatItem: {
+        flex: 1,
         alignItems: "center",
+        minWidth: 0,
+        paddingHorizontal: 4,
     },
     StatValue: {
         color: "white",
         fontSize: 18,
         fontWeight: "700",
+        textAlign: "center",
     },
     StatLabel: {
         color: "grey",
         fontSize: 12,
         marginTop: 4,
+        textAlign: "center",
+        includeFontPadding: false,
     },
 })

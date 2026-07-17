@@ -1,8 +1,11 @@
+import { getCurrentThemeObject, subscribeToTheme } from '@/constants/theme';
 import { ChatIcon, HomeIcon, SettingsIcon, UserIcon } from '@/icons/mainIcons';
 import { Tabs } from 'expo-router';
+import { useSyncExternalStore } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
+    const currentTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject);
     return (
         <SafeAreaProvider style={{
             width: "100%",
@@ -19,10 +22,10 @@ export default function TabLayout() {
                             paddingTop: 10,
                             position: "absolute",
                             bottom: 0,
-                            backgroundColor: "#0f0f0f",
+                            backgroundColor: currentTheme.backgroundColor,
                             justifyContent: "space-evenly",
                             alignItems: "center",
-                            borderColor: "rgba(234, 221, 227, 0.09)"
+                            borderColor: currentTheme.borderColor
 
                         },
                         tabBarItemStyle: {

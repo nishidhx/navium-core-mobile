@@ -1,15 +1,14 @@
 
-import { themeStyles } from "@/constants/theme";
-import { useTheme } from "@/hooks/useTheme";
+import { getCurrentThemeName, getCurrentThemeObject, setThemeMode, subscribeToTheme } from "@/constants/theme";
 import { SecureStorage } from "@/services/secureStore";
 import { useRouter } from "expo-router";
+import { useSyncExternalStore } from "react";
 import { Alert, Pressable, StyleSheet, Switch, Text, View } from "react-native";
 
 export default function Settings() {
     const router = useRouter();
-    const { theme, setMode } = useTheme();
-    const isDarkTheme = theme === "dark";
-    const themeStyle = themeStyles[theme];
+    const themeStyle = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject, getCurrentThemeObject);
+    const isDarkTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeName, getCurrentThemeName) === "dark";
 
     const handleLogout = () => {
         Alert.alert(
@@ -54,7 +53,9 @@ export default function Settings() {
                         <Text style={[styles.optionText, { color: themeStyle.textColor }]}>Dark mode</Text>
                         <Switch
                             value={isDarkTheme}
-                            onValueChange={(value) => setMode(value ? "dark" : "light")}
+                            onValueChange={async (value) => {
+                                await setThemeMode(value ? "dark" : "light");
+                            }}
                             thumbColor={themeStyle.switchThumbColor}
                             trackColor={themeStyle.switchTrackColor}
                         />

@@ -1,14 +1,32 @@
-import { useState } from "react";
+"use client"
+import { getCurrentThemeObject, subscribeToTheme } from "@/constants/theme";
+import { LinearGradient } from "expo-linear-gradient";
+import { useSyncExternalStore } from "react";
 import { Animated, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { UserActive } from "./userActive";
 import { UserIcon } from "./userIcon";
 import { UserStats } from "./userStats";
 
 export const UserProfile = () => {
-    const [userData, setUserData] = useState({});
+    const currentTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject, getCurrentThemeObject);
+    const gradientColors: readonly [string, string, string, string, string] = currentTheme.backgroundColor === "#100f0f"
+        ? [
+            "transparent",
+            "rgba(0,0,0,0.12)",
+            "rgba(0,0,0,0.24)",
+            "rgba(0,0,0,0.36)",
+            currentTheme.backgroundColor,
+        ]
+        : [
+            "transparent",
+            "rgba(255,255,255,0.15)",
+            "rgba(255,255,255,0.45)",
+            "rgba(255,255,255,0.75)",
+            currentTheme.backgroundColor,
+        ];
 
     return (
-        <Animated.View style={UserProfileStyles.Container}>
+        <Animated.View style={[UserProfileStyles.Container, { backgroundColor: currentTheme.backgroundColor }]}>
             <ScrollView style={UserProfileStyles.scrollView} contentContainerStyle={UserProfileStyles.scrollContent}>
                 <View style={UserProfileStyles.BannerContainer}>
                     <Image
@@ -16,16 +34,22 @@ export const UserProfile = () => {
                         style={UserProfileStyles.BannerImage}
                         resizeMode="cover"
                     />
-                    <View style={UserProfileStyles.IconWrapper}>
+                    <LinearGradient
+                        colors={gradientColors}
+                        start={{ x: 0.5, y: 0.2 }}
+                        end={{ x: 0.5, y: 1 }}
+                        style={UserProfileStyles.gradient}
+                    />
+                    <View style={[UserProfileStyles.IconWrapper]}>
                         <UserIcon />
                     </View>
                 </View>
                 <View style={UserProfileStyles.ProfileDescripiton}>
                     <View style={UserProfileStyles.NameContainer}>
-                        <Text style={{ color: "white", width: "100%", textAlign: "center", fontSize: 20, fontWeight: "bold" }}>Nishidh Singh</Text>
+                        <Text style={{ color: currentTheme.textColor, width: "100%", textAlign: "center", fontSize: 20, fontWeight: "bold" }}>Nishidh Singh</Text>
                     </View>
                     <View>
-                        <Text style={{ color: "grey", width: "100%", textAlign: "center", fontSize: 15 }}>@xnishidh</Text>
+                        <Text style={{ color: currentTheme.secondaryFontColor, width: "100%", textAlign: "center", fontSize: 15 }}>@xnishidh</Text>
                     </View>
                     <UserStats />
                     <UserActive />
@@ -36,6 +60,13 @@ export const UserProfile = () => {
 }
 
 const UserProfileStyles = StyleSheet.create({
+    gradient: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 120,
+  },
     Container: {
         backgroundColor: "#100f0f",
         flex: 1,
@@ -56,8 +87,7 @@ const UserProfileStyles = StyleSheet.create({
     BannerImage: {
         width: "100%",
         height: "100%",
-        borderBottomLeftRadius: 50,
-        borderBottomRightRadius: 50
+        
     },
     IconWrapper: {
         position: "absolute",
