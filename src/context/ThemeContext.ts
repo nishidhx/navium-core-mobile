@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { createContext, useEffect, useState } from "react";
+import { initializeTheme, setThemeMode, type ResolvedTheme, type ThemeMode } from "@/constants/theme";
+import React, { createContext, useEffect, useMemo, useState } from "react";
 import { useColorScheme } from "react-native";
 
-type ThemeMode = "light" | "dark" | "system";
-
 type ThemeContextType = {
-    theme: "light" | "dark";
+    theme: ResolvedTheme;
     themeMode: ThemeMode;
     setMode: (mode: ThemeMode) => Promise<void>;
 };
@@ -19,29 +17,39 @@ export const ThemeProvider = ({
 }) => {
     const systemTheme = useColorScheme();
     const [mode, setModeState] = useState<ThemeMode>("system");
+    const [theme, setThemeState] = useState<ResolvedTheme>("light");
 
     useEffect(() => {
         const loadThemeFromAsyncStorage = async () => {
-            const savedTheme = await AsyncStorage.getItem("theme");
-
-            if (savedTheme === "light" || savedTheme === "dark" || savedTheme === "system") {
-                setModeState(savedTheme);
-            }
+            const resolvedSystemTheme: ResolvedTheme = systemTheme === "dark" ? "dark" : "light";
+            const savedTheme = await initializeTheme(resolvedSystemTheme);
+            setModeState(savedTheme);
+            setThemeState(savedTheme === "system" ? resolvedSystemTheme : savedTheme);
         };
 
         loadThemeFromAsyncStorage();
-    }, []);
+    }, [systemTheme]);
+
+    useEffect(() => {
+        const resolvedSystemTheme: ResolvedTheme = systemTheme === "dark" ? "dark" : "light";
+        const resolvedTheme = mode === "system" ? resolvedSystemTheme : mode;
+
+        setThemeState(resolvedTheme);
+        void setThemeMode(mode, resolvedSystemTheme);
+    }, [mode, systemTheme]);
 
     const setMode = async (newMode: ThemeMode) => {
+        const resolvedSystemTheme: ResolvedTheme = systemTheme === "dark" ? "dark" : "light";
         setModeState(newMode);
-        await AsyncStorage.setItem("theme", newMode);
+        setThemeState(newMode === "system" ? resolvedSystemTheme : newMode);
+        await setThemeMode(newMode, resolvedSystemTheme);
     };
 
-    const theme = mode === "system" ? (systemTheme === "dark" ? "dark" : "light") : mode;
+    const value = useMemo(() => ({ theme, themeMode: mode, setMode }), [theme, mode]);
 
     return React.createElement(
         ThemeContext.Provider,
-        { value: { theme, themeMode: mode, setMode } },
+        { value },
         children
     );
 };

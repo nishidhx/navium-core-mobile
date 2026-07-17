@@ -1,12 +1,31 @@
-import { ThemeContext } from "@/context/ThemeContext";
-import { useContext } from "react";
+import {
+    getCurrentThemeMode,
+    getCurrentThemeName,
+    getCurrentThemeObject,
+    setThemeMode,
+    subscribeToTheme,
+} from "@/constants/theme";
+import { useSyncExternalStore } from "react";
 
 export const useTheme = () => {
-    const context = useContext(ThemeContext);
+    const state = useSyncExternalStore(
+        subscribeToTheme,
+        () => ({
+            theme: getCurrentThemeName(),
+            themeMode: getCurrentThemeMode(),
+            currentTheme: getCurrentThemeObject(),
+        }),
+        () => ({
+            theme: getCurrentThemeName(),
+            themeMode: getCurrentThemeMode(),
+            currentTheme: getCurrentThemeObject(),
+        })
+    );
 
-    if (!context) {
-        throw new Error("useTheme must be inside ThemeProvider");
-    }
-
-    return context;
-}
+    return {
+        theme: state.theme,
+        themeMode: state.themeMode,
+        currentTheme: state.currentTheme,
+        setMode: setThemeMode,
+    };
+};
