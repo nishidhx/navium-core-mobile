@@ -35,7 +35,7 @@ const ChatListViewStyles = StyleSheet.create({
         color: "white",
         fontSize: 40,
         fontWeight: "bold",
-        paddingHorizontal: 10,
+        paddingLeft: 30,
         paddingBottom: 10,
     }
 })

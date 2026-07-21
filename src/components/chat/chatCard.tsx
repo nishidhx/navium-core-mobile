@@ -25,7 +25,7 @@ export const ChatCard = ({
 
     return (
         <Pressable
-            style={[ChatCardStyles.ChatCardContainer, pressed && ChatCardStyles.ChatCardPressed]}
+            style={[ChatCardStyles.ChatCardContainer, pressed && ChatCardStyles.ChatCardPressed, {borderColor: currentTheme.borderColor}]}
             onPressIn={() => setPressed(true)}
             onPressOut={() => setPressed(false)}
             onPress={() => setPressed(false)}
@@ -46,27 +46,27 @@ export const ChatCard = ({
     );
 }
 
-//  ChatCardContainer: {
-//         width: "100%",
-//         flexDirection: "row",
-//         borderWidth: 0.2,
-//         gap: 19,
-//         paddingHorizontal: 10,
-//         paddingVertical: 10,
-//         borderColor: "rgba(32, 31, 31, 0.22)",
-//         height: 80,
-//         alignItems: "center"
-//     },
+
 
 const ChatCardStyles = StyleSheet.create({
+    //  ChatCardContainer: {
+    //     width: "100%",
+    //     flexDirection: "row",
+    //     borderWidth: 0.2,
+    //     gap: 19,
+    //     paddingHorizontal: 10,
+    //     paddingVertical: 10,
+    //     borderColor: "rgba(32, 31, 31, 0.22)",
+    //     height: 80,
+    //     alignItems: "center"
+    // },
    ChatCardContainer: {
-        width: "100%",
         flexDirection: "row",
         alignItems: "center",
         gap: 16,
-        marginHorizontal: 12,
         marginVertical: 4,
         paddingHorizontal: 16,
+        marginHorizontal: 10,
         paddingVertical: 12,
         borderRadius: 16,
         borderWidth: 1,
