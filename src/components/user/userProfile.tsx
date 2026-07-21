@@ -12,9 +12,9 @@ export const UserProfile = () => {
     const gradientColors: readonly [string, string, string, string, string] = currentTheme.backgroundColor === "#100f0f"
         ? [
             "transparent",
-            "rgba(0,0,0,0.12)",
+            "rgba(74, 74, 74, 0.4)",
             "rgba(0,0,0,0.24)",
-            "rgba(0,0,0,0.36)",
+            "rgba(17, 14, 14, 0.66)",
             currentTheme.backgroundColor,
         ]
         : [
@@ -70,7 +70,7 @@ const UserProfileStyles = StyleSheet.create({
     Container: {
         backgroundColor: "#100f0f",
         flex: 1,
-        width: "100%"
+        width: "100%",
     },
     scrollView: {
         flex: 1,
