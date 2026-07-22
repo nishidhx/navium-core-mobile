@@ -34,8 +34,12 @@ export const ChatCard = ({
             onPressOut={() => setPressed(false)}
             onPress={() => {
                 setPressed(false);
-                if (chatId) {
-                    router.push({ pathname: "/chat/[id]", params: { id: chatId } });
+                const targetId = name ?? chatId;
+                if (targetId) {
+                    router.push({
+                        pathname: "/chat/[id]",
+                        params: { id: targetId, image: image ?? "" },
+                    });
                 }
             }}
         >

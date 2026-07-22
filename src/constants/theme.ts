@@ -24,7 +24,7 @@ export const themeStyles = {
     light: {
         backgroundColor: "#f5f5f5",
         textColor: "#111111",
-        borderColor: "#b2b5bb42",
+        borderColor: "#b2b5bb66",
         borderBottomColor: "#e6e6e6",
         sectionTitleColor: "#6b7280",
         SecondaryBackgroundColor: "#e3e3e3be",

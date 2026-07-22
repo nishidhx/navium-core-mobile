@@ -1,11 +1,11 @@
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Octicons from '@expo/vector-icons/Octicons';
-import { ColorValue, Animated } from 'react-native';
 import { useEffect, useRef } from 'react';
+import { Animated, ColorValue } from 'react-native';
 
 
-interface defaultIconProps {
+export interface defaultIconProps {
     color?: ColorValue;
     size?: number;
 }
