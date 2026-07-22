@@ -21,6 +21,7 @@ export const ChatListView = () => {
                     name={chat.title ?? ""}
                     lastMessage={chat.lastMessage ?? ""}
                     lastMessageAt={chat.lastMessageAt ?? chat.date ?? ""}
+                    chatId={chat.id}
                 />
             ))}
         </ScrollView>

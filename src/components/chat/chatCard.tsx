@@ -1,5 +1,6 @@
 import { getCurrentThemeObject, subscribeToTheme } from "@/constants/theme";
 import { FormatDate } from "@/lib/formatDate";
+import { useRouter } from "expo-router";
 import { useState, useSyncExternalStore } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -8,12 +9,15 @@ export const ChatCard = ({
     image,
     lastMessage,
     lastMessageAt,
+    chatId,
 }: {
     name: string;
     image?: string;
     lastMessage: string;
     lastMessageAt?: string;
+    chatId?: string;
 }) => {
+    const router = useRouter();
     const currentTheme = useSyncExternalStore(subscribeToTheme, getCurrentThemeObject, getCurrentThemeObject);
     const [pressed, setPressed] = useState(false);
     const source = image
@@ -25,10 +29,15 @@ export const ChatCard = ({
 
     return (
         <Pressable
-            style={[ChatCardStyles.ChatCardContainer, pressed && ChatCardStyles.ChatCardPressed, {borderColor: currentTheme.borderColor}]}
+            style={[ChatCardStyles.ChatCardContainer, pressed && ChatCardStyles.ChatCardPressed, { borderColor: currentTheme.borderColor }]}
             onPressIn={() => setPressed(true)}
             onPressOut={() => setPressed(false)}
-            onPress={() => setPressed(false)}
+            onPress={() => {
+                setPressed(false);
+                if (chatId) {
+                    router.push({ pathname: "/chat/[id]", params: { id: chatId } });
+                }
+            }}
         >
             <View>
                 <Image source={source} style={ChatCardStyles.ProfileImage} />
